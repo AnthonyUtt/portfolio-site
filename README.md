@@ -1,30 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# portfolio-site
+This repository houses my personal web-dev portfolio. The site is hosted at [anthonyutt.com](https://anthonyutt.com).
 
-## Getting Started
+## About
+This site was created with [Next.js](https://nextjs.org). To get started with Next.js, follow the instructions below or look up the tutorial hosted [here](https://nextjs.org/learn/basics/create-nextjs-app).
 
-First, run the development server:
+Prerequisite: You must be running Node 10.13 (at the time of writing) or later. You can check your version using the following commands.
 
-```bash
-npm run dev
-# or
-yarn dev
+#### Mac
+
+```
+node -v
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Step 1: Create a Next.js App
+Create a new app using the `create-next-app` tool.
+```
+npx create-next-app <app-name>
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Step 2: Navigate to the app folder and run the development server
+You have a newly-created folder named `<app_name>`. Navigate to it:
+```
+cd <app_name>
+```
+And then run the following command to start the development server:
+```
+npm run dev
+```
 
-## Learn More
+### Step 3: Open a browser and navigate to `http://localhost:3000/`
+This one is pretty self-explanatory...
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Step 4: Start coding!
+Next.js using hot reloading, so any time you change a file in the application directory, the page will immediately be rendered to show your changes.
