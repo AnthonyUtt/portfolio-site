@@ -32,4 +32,10 @@ npm run dev
 This one is pretty self-explanatory...
 
 ### Step 4: Start coding!
-Next.js using hot reloading, so any time you change a file in the application directory, the page will immediately be rendered to show your changes.
+Next.js uses hot reloading, so any time you change a file in the application directory, the page will immediately be rendered to show your changes.
+
+## Updates
+As I finish newer projects that I think will fit better in my portfolio, I will be adding them to them site and possibly removing older projects. I expect this site to be updated quasi-regularly for the forseeable future.
+
+## Contact Me
+I am available for freelance projects, consultations, and on-site training. If you'd like to get in touch to discuss business matters, please use the contact form on [my website](https://anthonyutt.com).
