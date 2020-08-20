@@ -39,10 +39,6 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles(() => 
     createStyles({
-        appBar: {
-            background: 'transparent',
-            boxShadow: 'none',
-        },
         drawer: {
             background: 'white',
         },
@@ -92,7 +88,7 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
                         rel="stylesheet"
                     ></link>
                 </Head>
-                <AppBar position="static" className={styles.appBar}>
+                <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
                     <Toolbar>
                         <FormControlLabel 
                             control={
