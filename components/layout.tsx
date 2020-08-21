@@ -20,7 +20,6 @@ import {
     createMuiTheme,
     createStyles,
     makeStyles,
-    StylesProvider,
     ThemeProvider as MuiThemeProvider
 } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -55,11 +54,9 @@ const useStyles = makeStyles(() =>
             color: 'white',
         },
         toggle: {
-            marginLeft: 'auto',
             color: '#9c72cc',
         },
         toggleDarkMode: {
-            marginLeft: 'auto',
             color: '#867eff',
         }
     })
@@ -90,88 +87,79 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
     };
 
     return (
-        <StylesProvider injectFirst>
-            <MuiThemeProvider theme={theme}>
-            <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
-                <>
-                <Head>
-                    <title>{pageTitle ? `${pageTitle} | ` : ''}Anthony Utt | Custom Software Solutions</title>
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap"
-                        rel="stylesheet"
-                    ></link>
-
-                    <meta name="author" content="Anthony Utt" />
-                    <meta name="description" content="Custom Software Solutions by Anthony Utt" />
-                    <meta name="keywords" content="software, development, programmer, freelance, Anthony, Utt, programs, web, HTML, CSS, React, React developer, React.js" />
-                </Head>
-                <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
-                    <Toolbar>
-                        <FormControlLabel 
-                            control={
-                                <Switch
-                                    checked={isDarkTheme}
-                                    onChange={(e) => {
-                                        let action: ThemeDarkModeSetAction = {
-                                            type: THEME_DARK_MODE_SET,
-                                            darkMode: e.target.checked,
-                                        };
-                                        store.dispatch(action);
-                                    }}
-                                    inputProps={{ "aria-label": "dark mode toggle" }}
-                                />
-                            }
-                            label="Dark Mode"
-                            labelPlacement="start"
-                            className={isDarkTheme ? styles.toggleDarkMode : styles.toggle}
-                        />
-                        <IconButton
-                            onClick={() => toggleDrawer(true)}
-                            edge="end"
-                            color={isDarkTheme ? "secondary" : "primary"}
-                            aria-label="menu"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Drawer
-                            anchor="right"
-                            open={menuDrawer}
-                            onClose={() => toggleDrawer(false)}
-                            classes={{
-                                paper: isDarkTheme ? styles.drawerDarkMode : styles.drawer
-                            }}
-                        >
-                            <List>
-                                <Link href={routes.home}>
-                                    <a>
-                                        <ListItem button>Home</ListItem>
-                                    </a>
-                                </Link>
-                                <Link href={routes.resume}>
-                                    <a>
-                                        <ListItem button>R&eacute;sum&eacute;</ListItem>
-                                    </a>
-                                </Link>
-                                <Link href={routes.portfolio}>
-                                    <a>
-                                        <ListItem button>Portfolio</ListItem>
-                                    </a>
-                                </Link>
-                                <Link href={routes.contact}>
-                                    <a>
-                                        <ListItem button>Contact Me</ListItem>
-                                    </a>
-                                </Link>
-                            </List>
-                        </Drawer>
-                    </Toolbar>
-                </AppBar>
-                <GlobalStyles />
-                {children}
-                </>
-            </ThemeProvider>
-            </MuiThemeProvider>
-        </StylesProvider>
+        <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+            <>
+            <Head>
+                <title>{pageTitle ? `${pageTitle} | ` : ''}Anthony Utt | Custom Software Solutions</title>
+            </Head>
+            <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
+                <Toolbar>
+                    <FormControlLabel 
+                        control={
+                            <Switch
+                                checked={isDarkTheme}
+                                onChange={(e) => {
+                                    let action: ThemeDarkModeSetAction = {
+                                        type: THEME_DARK_MODE_SET,
+                                        darkMode: e.target.checked,
+                                    };
+                                    store.dispatch(action);
+                                }}
+                                inputProps={{ "aria-label": "dark mode toggle" }}
+                            />
+                        }
+                        label="Dark Mode"
+                        labelPlacement="start"
+                        className={isDarkTheme ? styles.toggleDarkMode : styles.toggle}
+                        style={{ marginLeft: 'auto' }}
+                    />
+                    <IconButton
+                        onClick={() => toggleDrawer(true)}
+                        edge="end"
+                        color={isDarkTheme ? "secondary" : "primary"}
+                        aria-label="menu"
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Drawer
+                        anchor="right"
+                        open={menuDrawer}
+                        onClose={() => toggleDrawer(false)}
+                        classes={{
+                            paper: isDarkTheme ? styles.drawerDarkMode : styles.drawer
+                        }}
+                    >
+                        <List>
+                            <Link href={routes.home}>
+                                <a>
+                                    <ListItem button>Home</ListItem>
+                                </a>
+                            </Link>
+                            <Link href={routes.resume}>
+                                <a>
+                                    <ListItem button>R&eacute;sum&eacute;</ListItem>
+                                </a>
+                            </Link>
+                            <Link href={routes.portfolio}>
+                                <a>
+                                    <ListItem button>Portfolio</ListItem>
+                                </a>
+                            </Link>
+                            <Link href={routes.contact}>
+                                <a>
+                                    <ListItem button>Contact Me</ListItem>
+                                </a>
+                            </Link>
+                        </List>
+                    </Drawer>
+                </Toolbar>
+            </AppBar>
+            <GlobalStyles />
+            {children}
+            </>
+        </ThemeProvider>
+        </MuiThemeProvider>
     );
 };
 
