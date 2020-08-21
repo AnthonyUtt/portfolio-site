@@ -1,10 +1,10 @@
-import { useEffect, useState, ReactNode } from 'react';
+import React, { useEffect, useState, ReactNode } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useStore } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from '../styles/themes';
-import { GlobalStyles } from '../styles/global';
+import GlobalStyles from '../styles/global';
 
 import {
     AppBar,
@@ -92,7 +92,7 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
     return (
         <StylesProvider injectFirst>
             <MuiThemeProvider theme={theme}>
-            <ThemeProvider theme={store.getState().theme.darkMode ? darkTheme : lightTheme}>
+            <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
                 <>
                 <Head>
                     <title>{pageTitle ? `${pageTitle} | ` : ''}Anthony Utt | Custom Software Solutions</title>
@@ -123,12 +123,12 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
                             }
                             label="Dark Mode"
                             labelPlacement="start"
-                            className={store.getState().theme.darkMode ? styles.toggleDarkMode : styles.toggle}
+                            className={isDarkTheme ? styles.toggleDarkMode : styles.toggle}
                         />
                         <IconButton
                             onClick={() => toggleDrawer(true)}
                             edge="end"
-                            color={store.getState().theme.darkMode ? "secondary" : "primary"}
+                            color={isDarkTheme ? "secondary" : "primary"}
                             aria-label="menu"
                         >
                             <MenuIcon />
@@ -138,7 +138,7 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
                             open={menuDrawer}
                             onClose={() => toggleDrawer(false)}
                             classes={{
-                                paper: store.getState().theme.darkMode ? styles.drawerDarkMode : styles.drawer
+                                paper: isDarkTheme ? styles.drawerDarkMode : styles.drawer
                             }}
                         >
                             <List>
