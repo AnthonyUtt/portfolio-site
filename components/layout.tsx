@@ -1,6 +1,7 @@
-import { useState, ReactNode } from 'react';
+import { useEffect, useState, ReactNode } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useStore } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from '../styles/themes';
 import { GlobalStyles } from '../styles/global';
@@ -25,6 +26,8 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 
 import routes from '../constants/routes';
+
+import { THEME_DARK_MODE_SET, ThemeDarkModeSetAction } from '../redux/actions';
 
 const theme = createMuiTheme({
     palette:{
@@ -68,9 +71,19 @@ type LayoutProps = {
 };
 
 const Layout = ({ pageTitle, children }: LayoutProps) => {
-    const [ isDarkTheme, setDarkTheme ] = useState(false);
     const [ menuDrawer, setMenuDrawer ] = useState(false);
     const styles = useStyles();
+    const store = useStore();
+    
+    const [ isDarkTheme, setDarkTheme ] = useState(store.getState().theme.darkMode);
+    const unsubscribe = store.subscribe(() => {
+        let s = store.getState();
+        setDarkTheme(s.theme.darkMode);
+    })
+
+    useEffect(() => {
+        return () => unsubscribe();
+    })
 
     const toggleDrawer = (open: boolean) => {
         setMenuDrawer(open);
@@ -79,7 +92,7 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
     return (
         <StylesProvider injectFirst>
             <MuiThemeProvider theme={theme}>
-            <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+            <ThemeProvider theme={store.getState().theme.darkMode ? darkTheme : lightTheme}>
                 <>
                 <Head>
                     <title>{pageTitle ? `${pageTitle} | ` : ''}Anthony Utt | Custom Software Solutions</title>
@@ -87,6 +100,10 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
                         href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap"
                         rel="stylesheet"
                     ></link>
+
+                    <meta name="author" content="Anthony Utt" />
+                    <meta name="description" content="Custom Software Solutions by Anthony Utt" />
+                    <meta name="keywords" content="software, development, programmer, freelance, Anthony, Utt, programs, web, HTML, CSS, React, React developer, React.js" />
                 </Head>
                 <AppBar position="static" style={{ background: 'transparent', boxShadow: 'none' }}>
                     <Toolbar>
@@ -94,18 +111,24 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
                             control={
                                 <Switch
                                     checked={isDarkTheme}
-                                    onChange={(e) => setDarkTheme(e.target.checked)}
+                                    onChange={(e) => {
+                                        let action: ThemeDarkModeSetAction = {
+                                            type: THEME_DARK_MODE_SET,
+                                            darkMode: e.target.checked,
+                                        };
+                                        store.dispatch(action);
+                                    }}
                                     inputProps={{ "aria-label": "dark mode toggle" }}
                                 />
                             }
                             label="Dark Mode"
                             labelPlacement="start"
-                            className={isDarkTheme ? styles.toggleDarkMode : styles.toggle}
+                            className={store.getState().theme.darkMode ? styles.toggleDarkMode : styles.toggle}
                         />
                         <IconButton
                             onClick={() => toggleDrawer(true)}
                             edge="end"
-                            color={isDarkTheme ? "secondary" : "primary"}
+                            color={store.getState().theme.darkMode ? "secondary" : "primary"}
                             aria-label="menu"
                         >
                             <MenuIcon />
@@ -115,7 +138,7 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
                             open={menuDrawer}
                             onClose={() => toggleDrawer(false)}
                             classes={{
-                                paper: isDarkTheme ? styles.drawerDarkMode : styles.drawer
+                                paper: store.getState().theme.darkMode ? styles.drawerDarkMode : styles.drawer
                             }}
                         >
                             <List>
